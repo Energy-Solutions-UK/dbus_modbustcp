@@ -45,3 +45,6 @@ jobs:
       - name: use sdk
         run: . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
 
+      - name: build project
+        run: ./build.sh
+
