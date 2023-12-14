@@ -57,14 +57,6 @@ jobs:
       - name: search for mkspecs
         run: find /opt/venus/current/sysroots/x86_64-ve-linux/ -name mkspecs
 
-      # verify the mkspecs path
-      - name: verify mkspecs path
-        run: ls -la /opt/venus/current/sysroots/x86_64-ve-linux/usr/share/qt5/mkspecs
-
-      # verify the mkspecs permissions
-      - name: verify mkspecs permissions
-        run: ls -la /opt/venus/current/sysroots/x86_64-ve-linux/usr/share/qt5/mkspecs
-
       - name: build project
-        run: QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/share/qt5/mkspecs ./build.sh
+        run: QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/mkspecs ./build.sh
 
