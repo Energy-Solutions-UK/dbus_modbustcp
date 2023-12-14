@@ -1,11 +1,11 @@
-name: My Workflow
+name: Compile and Build
 
 on:
   workflow_dispatch:
 
 jobs:
   my_job:
-    name: deploy to staging
+    name: Compile and build using SDK
     runs-on: ubuntu-latest
 
     strategy:
@@ -48,7 +48,10 @@ jobs:
       - name: symlink qmake
         run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake /usr/bin/qmake
 
-      # remove current make from the system
+      # set the QMAKESPEC environment variable to point to the qmake spec file
+      - name: set QMAKESPEC
+        run: export QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/lib/qt5/mkspecs/linux-oe-g++
+
       - name: remove make
         run: sudo rm /usr/bin/make
 
