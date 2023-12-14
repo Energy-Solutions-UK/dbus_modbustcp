@@ -53,9 +53,13 @@ jobs:
       - name: symlink make
         run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
 
-      # # add a command to find the location of mkspecs
-      # - name: find mkspecs
-      #   run: find /opt/venus/current/sysroots/x86_64-ve-linux/usr/share/qt5/mkspecs -name "qmake.conf"
+      # verify the mkspecs path
+      - name: verify mkspecs path
+        run: ls -la /opt/venus/current/sysroots/x86_64-ve-linux/usr/share/qt5/mkspecs
+
+      # verify the mkspecs permissions
+      - name: verify mkspecs permissions
+        run: ls -la /opt/venus/current/sysroots/x86_64-ve-linux/usr/share/qt5/mkspecs
 
       - name: build project
         run: QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/share/qt5/mkspecs ./build.sh
