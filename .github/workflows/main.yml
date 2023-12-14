@@ -16,6 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: install qmake
+        run: sudo apt-get install qt5-qmake
+
       - name: Check Architecture
         run: |
           if [[ "${{ matrix.architecture }}" != "x86_64" ]]; then
