@@ -48,6 +48,10 @@ jobs:
       - name: symlink qmake
         run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake /usr/bin/qmake
 
+      # remove current make from the system
+      - name: remove make
+        run: sudo rm /usr/bin/make
+
       - name: symlink make
         run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
 
