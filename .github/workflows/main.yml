@@ -14,9 +14,22 @@ jobs:
         architecture: [x86_64]
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Check Architecture
         run: |
           if [[ "${{ matrix.architecture }}" != "x86_64" ]]; then
             echo "Unsupported architecture. Exiting..."
             exit 1
           fi
+
+      # add another step to download the file in this link https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
+      - name: download sdk
+        run: wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
+
+      - name: change SDK permissions
+        run: chmod u+x venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
+      
+      - name: install sdk
+        run: ./venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh -y
+
