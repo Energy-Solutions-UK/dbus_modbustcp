@@ -55,7 +55,5 @@ jobs:
         run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
 
       - name: build project
-        run: |
-          export QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/lib/qt5/mkspecs/linux-oe-g++
-          ./build.sh
+        run: ./build.sh
 
