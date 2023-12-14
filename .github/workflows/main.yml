@@ -39,10 +39,9 @@ jobs:
       - name: symlinks
         run: ln -s /opt/venus/rocko-arm-cortexa7hf-neon-vfpv4en/* /opt/venus/current/
 
+      - name: list the contents of the current directory
+        run: ls -la /opt/venus/current/
+
       # - name: use sdk
       #   run: ./opt/venus/rocko-arm-cortexa7hf-neon-vfpv4en
-
-      # list the contents of /opt/venus/current and list the items that start with environment
-      - name: list contents
-        run: ls -l /opt/venus/current | grep environment
 
