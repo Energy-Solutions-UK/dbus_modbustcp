@@ -53,6 +53,10 @@ jobs:
       - name: symlink make
         run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
 
+      # search for the location of qmake.conf in the /opt/venus/current/sysroots/x86_64-ve-linux/ directory and subdirectories
+      - name: search for qmake.conf
+        run: find /opt/venus/current/sysroots/x86_64-ve-linux/ -name qmake.conf
+
       - name: build project
         run: QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/lib/mkspecs ./build.sh
 
