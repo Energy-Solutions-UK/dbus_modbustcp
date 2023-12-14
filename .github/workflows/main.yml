@@ -40,7 +40,7 @@ jobs:
         run: ln -s /opt/venus/rocko-arm-cortexa7hf-neon-vfpv4en/* /opt/venus/current/
 
       - name: list the contents of the current directory
-        run: ls -la /opt/venus/current/
+        run: ls -la /opt/venus/rocko-arm-cortexa7hf-neon-vfpv4en/
 
       - name: use sdk
         run: ./opt/venus/current/environment-setup-cortexa7hf-neon-vfpv4-oe-linux-gnueabi
