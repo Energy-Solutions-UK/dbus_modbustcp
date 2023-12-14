@@ -42,13 +42,6 @@ jobs:
       - name: list the contents of the current directory
         run: sudo ls -la /opt/venus/current
 
-      - name: use sdk
-        run: . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
-
-      - name: symlink qmake
-        run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake /usr/bin/qmake
-
-      # set the QMAKESPEC environment variable to point to the qmake spec file
       - name: set QMAKESPEC
         run: export QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/lib/qt5/mkspecs/linux-oe-g++
 
@@ -59,5 +52,7 @@ jobs:
         run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
 
       - name: build project
-        run: ./build.sh
+        run: |
+          export QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/lib/qt5/mkspecs/linux-oe-g++
+          ./build.sh
 
