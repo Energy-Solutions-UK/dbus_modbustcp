@@ -23,7 +23,6 @@ jobs:
             exit 1
           fi
 
-      # add another step to download the file in this link https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
       - name: download sdk
         run: wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
 
@@ -54,6 +53,10 @@ jobs:
       - name: symlink make
         run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
 
+      # # add a command to find the location of mkspecs
+      # - name: find mkspecs
+      #   run: find /opt/venus/current/sysroots/x86_64-ve-linux/usr/share/qt5/mkspecs -name "qmake.conf"
+
       - name: build project
-        run: ./build.sh
+        run: QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/share/qt5/mkspecs ./build.sh
 
