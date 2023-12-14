@@ -42,6 +42,6 @@ jobs:
       - name: list the contents of the current directory
         run: ls -la /opt/venus/current/
 
-      # - name: use sdk
-      #   run: ./opt/venus/rocko-arm-cortexa7hf-neon-vfpv4en
+      - name: use sdk
+        run: ./opt/venus/current/environment-setup-cortexa7hf-neon-vfpv4-oe-linux-gnueabi
 
