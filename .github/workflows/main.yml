@@ -45,6 +45,12 @@ jobs:
       - name: use sdk
         run: . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
 
+      - name: symlink qmake
+        run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake /usr/bin/qmake
+
+      - name: symlink make
+        run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
+
       - name: build project
         run: ./build.sh
 
