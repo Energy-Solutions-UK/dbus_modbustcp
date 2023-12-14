@@ -32,4 +32,10 @@ jobs:
       
       - name: install sdk
         run: ./venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh -y
+      
+      - name: symlinks
+        run: ln -s /opt/venus/rocko-arm-cortexa7hf-neon-vfpv4en/* /opt/venus/current/
+
+      - name: list directory
+        run: cd /opt/venus/current && ls -la
 
