@@ -48,10 +48,13 @@ jobs:
       - name: run helloworld.c
         run: gcc helloworld.c -o helloworld
 
-      # file helloworld
-      - name: file helloworld
-        run: file helloworld
+      - name: Check helloworld binary
+        run: |
+          . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
+          file helloworld
 
+      # EXPECTED: helloworld: ELF 32-bit LSB  executable, ARM, EABI5 version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.16, not stripped
+      # GOT: helloworld: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=62f2f36f9e1c9b6a401aef897df9605ca182ba86, for GNU/Linux 3.2.0, not stripped
 
 
 
