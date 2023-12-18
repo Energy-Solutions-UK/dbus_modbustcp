@@ -64,7 +64,7 @@ jobs:
 
       # run the executable
       - name: run helloworld
-        run: file helloworld
+        run: ./helloworld
 
 
 
