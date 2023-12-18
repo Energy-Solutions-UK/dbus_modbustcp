@@ -44,37 +44,13 @@ jobs:
       - name: use sdk
         run: . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
 
-      # create a file called helloworld.c
-      # containing 
-      #include <stdio.h>
-    
-      # int main()
-      # {
-      #     puts("hello world");
-      #     return 0;
-      # }
+      # run helloworld.c
+      - name: run helloworld.c
+        run: gcc helloworld.c -o helloworld
 
-      # create the file
-      - name: create helloworld.c
-        run: echo '#include <stdio.h>\n\nint main()\n{\n    puts("hello world");\n    return 0;\n}' > helloworld.c
-
-      # $CC helloworld.c -o helloworld
-      - name: compile helloworld.c
-        run: $CC helloworld.c -o helloworld
-
-      # run the executable
-      - name: run helloworld
-        run: ./helloworld
-
-
-
-
-
-
-
-
-
-
+      # file helloworld
+      - name: file helloworld
+        run: file helloworld
 
 
 
