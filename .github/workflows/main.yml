@@ -58,5 +58,5 @@ jobs:
         run: find /opt/venus/current/sysroots/x86_64-ve-linux/ -name qmake.conf
 
       - name: build project
-        run: ./build.sh
+        run: QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/lib/mkspecs/linux-g++ ./build.sh
 
