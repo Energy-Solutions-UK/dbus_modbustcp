@@ -44,19 +44,55 @@ jobs:
       - name: use sdk
         run: . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
 
-      - name: symlink qmake
-        run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake /usr/bin/qmake
+      # create a file called helloworld.c
+      # containing 
+      #include <stdio.h>
+    
+      # int main()
+      # {
+      #     puts("hello world");
+      #     return 0;
+      # }
 
-      - name: remove make
-        run: sudo rm /usr/bin/make
+      # create the file
+      - name: create helloworld.c
+        run: echo '#include <stdio.h>\n\nint main()\n{\n    puts("hello world");\n    return 0;\n}' > helloworld.c
 
-      - name: symlink make
-        run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
+      # $CC helloworld.c -o helloworld
+      - name: compile helloworld.c
+        run: $CC helloworld.c -o helloworld
 
-      # search for the location of qmake.conf in the /opt/venus/current/sysroots/x86_64-ve-linux/ directory and subdirectories
-      - name: search for qmake.conf
-        run: find /opt/venus/current/sysroots/x86_64-ve-linux/ -name qmake.conf
+      # run the executable
+      - name: run helloworld
+        run: file helloworld
 
-      - name: build project
-        run: QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/lib/mkspecs/linux-g++ ./build.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      # - name: symlink qmake
+      #   run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake /usr/bin/qmake
+
+      # - name: remove make
+      #   run: sudo rm /usr/bin/make
+
+      # - name: symlink make
+      #   run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
+
+      # # search for the location of qmake.conf in the /opt/venus/current/sysroots/x86_64-ve-linux/ directory and subdirectories
+      # - name: search for qmake.conf
+      #   run: find /opt/venus/current/sysroots/x86_64-ve-linux/ -name qmake.conf
+
+      # - name: build project
+      #   run: QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/lib/mkspecs/linux-g++ ./build.sh
 
