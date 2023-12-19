@@ -66,18 +66,18 @@ jobs:
 
 
 
-      # - name: symlink qmake
-      #   run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake /usr/bin/qmake
+      - name: symlink qmake
+        run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake /usr/bin/qmake
 
-      # - name: remove make
-      #   run: sudo rm /usr/bin/make
+      - name: remove make
+        run: sudo rm /usr/bin/make
 
-      # - name: symlink make
-      #   run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
+      - name: symlink make
+        run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
 
-      # # search for the location of qmake.conf in the /opt/venus/current/sysroots/x86_64-ve-linux/ directory and subdirectories
-      # - name: search for qmake.conf
-      #   run: find /opt/venus/current/sysroots/x86_64-ve-linux/ -name qmake.conf
+      # search for the location of qmake.conf in the /opt/venus/current/sysroots/x86_64-ve-linux/ directory and subdirectories
+      - name: search for qmake.conf
+        run: find /opt/venus/current/sysroots/x86_64-ve-linux/ -name qmake.conf
 
       - name: build project
         run: QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/lib/mkspecs/linux-g++ ./build.sh
