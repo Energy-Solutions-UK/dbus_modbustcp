@@ -25,61 +25,29 @@ jobs:
             exit 1
           fi
 
-      - name: download sdk
-        run: wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
-
-      - name: change SDK permissions
-        run: chmod u+x venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
-      
-      - name: install sdk
-        run: sudo ./venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh -y
-      
-      - name: create current directory
-        run: mkdir -p /opt/venus/current
-
-      - name: symlinks
-        run: sudo ln -s /opt/venus/dunfell-arm-cortexa8hf-neon/* /opt/venus/current/
-
-      - name: list the contents of the current directory
-        run: sudo ls -la /opt/venus/current
-
-      - name: use sdk
-        run: . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
-
-
-
-
-      # - name: Run qmake
-      #   run: |
-      #     export QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/mkspecs/linux-g++
-      #     /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake dbus_modbustcp.pro
-
-      # - name: Run make
-      #   run: make
-
-      # # list contents of /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/
-      # - name: list contents of /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/
-      #   run: ls -la /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/
-
-      # # set the global c variable to the path of the compiler
-      # - name: set the global c variable to the path of the compiler
-      #   run: export c=/opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/g++
-
-      # # list contents of current directory
-      # - name: list contents of current directory
-      #   run: ls -la
+      - name: Download & Install SDK
+        run: |
+          wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
+          chmod u+x venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
+          sudo ./venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh -y
+          mkdir -p /opt/venus/current
+          sudo ln -s /opt/venus/dunfell-arm-cortexa8hf-neon/* /opt/venus/current/
 
       - name: build project
-        run: ./build.sh
+        run: |
+          . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
+          mkdir -p build/dbus-modbustcp
+          cd build/dbus-modbustcp
+          qmake ../../dbus_modbustcp.pro && make
 
-      # # list contents of current directory
-      # - name: list contents of current directory
-      #   run: ls -la
+      - name: list build directory
+        run: |
+          ls -l build/dbus-modbustcp
 
-      # # list contents of build
-      # - name: list contents of build directory
-      #   run: ls -la build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dbus-modbustcp
+          path: build/dbus-modbustcp
 
-      # # list the contents of build/dbus-modbustcp
-      # - name: list the contents of build/dbus-modbustcp
-      #   run: ls -la build/dbus-modbustcp
+
