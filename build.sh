@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
+. /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
+
 mkdir -p build/dbus-modbustcp
 cd build/dbus-modbustcp
-export QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/mkspecs/linux-g++
-/opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake CXX=$CXX ../../dbus_modbustcp.pro && make
+qmake CXX=$CXX ../../dbus_modbustcp.pro && make

@@ -46,29 +46,40 @@ jobs:
       - name: use sdk
         run: . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
 
-      - name: Run qmake
-        run: |
-          export QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/mkspecs/linux-g++
-          /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake dbus_modbustcp.pro
 
-      - name: Run make
-        run: make
 
-      # list contents of current directory
-      - name: list contents of current directory
-        run: ls -la
+
+      # - name: Run qmake
+      #   run: |
+      #     export QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/mkspecs/linux-g++
+      #     /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake dbus_modbustcp.pro
+
+      # - name: Run make
+      #   run: make
+
+      # # list contents of /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/
+      # - name: list contents of /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/
+      #   run: ls -la /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/
+
+      # # set the global c variable to the path of the compiler
+      # - name: set the global c variable to the path of the compiler
+      #   run: export c=/opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/g++
+
+      # # list contents of current directory
+      # - name: list contents of current directory
+      #   run: ls -la
 
       - name: build project
         run: ./build.sh
 
-      # list contents of current directory
-      - name: list contents of current directory
-        run: ls -la
+      # # list contents of current directory
+      # - name: list contents of current directory
+      #   run: ls -la
 
-      # list contents of build
-      - name: list contents of build directory
-        run: ls -la build
+      # # list contents of build
+      # - name: list contents of build directory
+      #   run: ls -la build
 
-      # list the contents of build/dbus-modbustcp
-      - name: list the contents of build/dbus-modbustcp
-        run: ls -la build/dbus-modbustcp
+      # # list the contents of build/dbus-modbustcp
+      # - name: list the contents of build/dbus-modbustcp
+      #   run: ls -la build/dbus-modbustcp

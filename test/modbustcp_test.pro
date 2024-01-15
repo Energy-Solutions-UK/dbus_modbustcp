@@ -19,7 +19,7 @@ QMAKE_CXXFLAGS += -Wno-unused-local-typedefs
 # gcc complains about this while compiling google test
 QMAKE_CXXFLAGS += -Wno-missing-field-initializers
 
-MOC_DIR=/opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/moc
+MOC_DIR=.moc
 OBJECTS_DIR=.obj
 
 SRCDIR = ..
