@@ -1,7 +1,9 @@
 name: Compile and Build
 
+# run on push
 on:
-  workflow_dispatch:
+  push:
+    branches: [ master ]
 
 jobs:
   my_job:
@@ -44,41 +46,12 @@ jobs:
       - name: use sdk
         run: . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
 
-      # run helloworld.c
-      - name: run helloworld.c
-        run: gcc helloworld.c -o helloworld
+      - name: qmake
+        run: /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake dbus_modbustcp.pro
 
-      - name: Check helloworld binary
-        run: |
-          . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
-          file helloworld
+      - name: make
+        run: make
 
-      # # save this file to my github repo
-      # - name: save helloworld binary
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: helloworld
-      #     path: helloworld
-
-      # EXPECTED: helloworld: ELF 32-bit LSB  executable, ARM, EABI5 version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.16, not stripped
-      # GOT: helloworld: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=62f2f36f9e1c9b6a401aef897df9605ca182ba86, for GNU/Linux 3.2.0, not stripped
-
-
-
-
-      - name: symlink qmake
-        run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake /usr/bin/qmake
-
-      - name: remove make
-        run: sudo rm /usr/bin/make
-
-      - name: symlink make
-        run: sudo ln -s /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make /usr/bin/make
-
-      # search for the location of qmake.conf in the /opt/venus/current/sysroots/x86_64-ve-linux/ directory and subdirectories
-      - name: search for qmake.conf
-        run: find /opt/venus/current/sysroots/x86_64-ve-linux/ -name qmake.conf
-
-      - name: build project
-        run: QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/lib/mkspecs/linux-g++ ./build.sh
+      # - name: build project
+      #   run: ./build.sh
 
