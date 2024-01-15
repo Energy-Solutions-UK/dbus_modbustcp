@@ -21,7 +21,14 @@ jobs:
             echo "Unsupported architecture. Exiting..."
             exit 1
           fi
+      - name: Cache SDK
+        id: cache-sdk
+        uses: actions/cache@v2
+        with:
+          path: /opt/venus
+          key: ${{ runner.os }}-sdk-${{ hashFiles('**/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh') }}
       - name: Download & Install SDK
+        if: steps.cache-sdk.outputs.cache-hit != 'true'
         run: |
           wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
           chmod u+x venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
@@ -34,9 +41,6 @@ jobs:
           mkdir -p build/dbus-modbustcp
           cd build/dbus-modbustcp
           qmake ../../dbus_modbustcp.pro && make
-      - name: list build directory
-        run: |
-          ls -l build/dbus-modbustcp
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
