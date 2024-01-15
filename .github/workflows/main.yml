@@ -54,3 +54,6 @@ jobs:
       - name: build project
         run: ./build.sh
 
+      # list the contents of build/dbus-modbustcp
+      - name: list the contents of build/dbus-modbustcp
+        run: ls -la build/dbus-modbustcp
