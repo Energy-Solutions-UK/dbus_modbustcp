@@ -52,10 +52,22 @@ jobs:
           /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake dbus_modbustcp.pro
 
       - name: Run make
-        run: /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make
+        run: make
+
+      # list contents of current directory
+      - name: list contents of current directory
+        run: ls -la
 
       - name: build project
         run: ./build.sh
+
+      # list contents of current directory
+      - name: list contents of current directory
+        run: ls -la
+
+      # list contents of build
+      - name: list contents of build directory
+        run: ls -la build
 
       # list the contents of build/dbus-modbustcp
       - name: list the contents of build/dbus-modbustcp

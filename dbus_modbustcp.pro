@@ -27,7 +27,7 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-MOC_DIR=.moc
+MOC_DIR=/opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/moc
 OBJECTS_DIR=.obj
 
 include(ext/QsLog/QsLog.pri)
