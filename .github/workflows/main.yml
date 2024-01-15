@@ -51,6 +51,9 @@ jobs:
           export QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/mkspecs/linux-g++
           /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake dbus_modbustcp.pro
 
+      - name: Run make
+        run: /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/make
+
       - name: build project
         run: ./build.sh
 
