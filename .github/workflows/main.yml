@@ -1,30 +1,26 @@
-name: Compile and Build
-
-# run on push
+name: build-modbustcp
+run-name: ${{ github.actor }} is building modbustcp
 on:
   push:
-    branches: [ master ]
-
+    paths-ignore:
+      - '**/README.md'
 jobs:
-  my_job:
-    name: Compile and build using SDK
+  build-modbustcp:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     strategy:
       matrix:
         os: [ubuntu-latest]
         architecture: [x86_64]
-
     steps:
       - uses: actions/checkout@v2
-
       - name: Check Architecture
         run: |
           if [[ "${{ matrix.architecture }}" != "x86_64" ]]; then
             echo "Unsupported architecture. Exiting..."
             exit 1
           fi
-
       - name: Download & Install SDK
         run: |
           wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
@@ -32,22 +28,17 @@ jobs:
           sudo ./venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh -y
           mkdir -p /opt/venus/current
           sudo ln -s /opt/venus/dunfell-arm-cortexa8hf-neon/* /opt/venus/current/
-
       - name: build project
         run: |
           . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
           mkdir -p build/dbus-modbustcp
           cd build/dbus-modbustcp
           qmake ../../dbus_modbustcp.pro && make
-
       - name: list build directory
         run: |
           ls -l build/dbus-modbustcp
-
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
           name: dbus-modbustcp
-          path: build/dbus-modbustcp
-
-
+          path: build/dbus-modbustcp/dbus-modbustcp
