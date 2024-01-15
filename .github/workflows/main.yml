@@ -25,8 +25,19 @@ jobs:
             exit 1
           fi
 
+      - name: Cache SDK
+        uses: actions/cache@v2
+        with:
+          path: /path/to/sdk
+          key: ${{ runner.os }}-sdk-${{ hashFiles('**/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh') }}
+          restore-keys: |
+            ${{ runner.os }}-sdk-
+
       - name: download sdk
-        run: wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
+        run: |
+          if [ ! -f /path/to/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh ]; then
+            wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh -P /path/to/sdk
+          fi
 
       - name: change SDK permissions
         run: chmod u+x venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
