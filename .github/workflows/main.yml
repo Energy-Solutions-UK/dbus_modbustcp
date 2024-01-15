@@ -25,19 +25,8 @@ jobs:
             exit 1
           fi
 
-      - name: Cache SDK
-        uses: actions/cache@v2
-        with:
-          path: /
-          key: ${{ runner.os }}-sdk-${{ hashFiles('**/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh') }}
-          restore-keys: |
-            ${{ runner.os }}-sdk-
-
       - name: download sdk
-        run: |
-          if [ ! -f /venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh ]; then
-            wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh -P /
-          fi
+        run: wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
 
       - name: change SDK permissions
         run: chmod u+x venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
@@ -62,9 +51,6 @@ jobs:
           export QMAKESPEC=/opt/venus/current/sysroots/x86_64-ve-linux/usr/mkspecs/linux-g++
           /opt/venus/current/sysroots/x86_64-ve-linux/usr/bin/qmake dbus_modbustcp.pro
 
-      - name: make
-        run: make
-
-      # - name: build project
-      #   run: ./build.sh
+      - name: build project
+        run: ./build.sh
 
