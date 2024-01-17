@@ -336,6 +336,24 @@ void Mappings::setValues(MappingRequest *request)
 			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint64>(value),
 									  it.data()->scaleFactor);
 			break;
+		case mb_type_string:
+		{
+			QString s = item->getValue().toString();
+			QByteArray b = s.toLatin1();
+			int index = 2 * it.offset();
+			for (int i=0; i<it.registerCount(); ++i, ++index) {
+				if (index >= b.size())
+					b.append('\0');
+				b[index] = static_cast<char>(value >> 8);
+				++index;
+				if (index >= b.size())
+					b.append('\0');
+				b[index] = static_cast<char>(value);
+				value >>= 16;
+			}
+			dbusValue = QString::fromLatin1(b);
+			break;
+		}
 		default:
 			// Do nothing. dbusValue will remain invalid, which will generate an error below.
 			break;
