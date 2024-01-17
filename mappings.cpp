@@ -294,7 +294,6 @@ void Mappings::setValues(MappingRequest *request)
 	QLOG_ERROR() << "data size" << data.size();
 	QLOG_ERROR() << "data" << data;
 
-
 	for (;!it.atEnd(); it.next()) {
 		Q_ASSERT(it.error() == NoError);
 		// Where a register is calculated from multiple items, a WRITE should not be possible,
@@ -309,8 +308,11 @@ void Mappings::setValues(MappingRequest *request)
 			// later.
 			QVariant dbusValue = item->getValue();
 			for (int i=0; i<it.data()->size; ++i) {
+				QLOG_ERROR() << "getting value";
 				quint16 v = getValue(dbusValue, it.data()->modbusType, i, it.data()->scaleFactor);
+				QLOG_ERROR() << "value" << v;
 				value = (value << 16) | v;
+				QLOG_ERROR() << "value2" << value;
 			}
 		}
 		// Copy the request data to `value`. Take care not to overwrite parts of `value` not
