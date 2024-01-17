@@ -292,7 +292,7 @@ void Mappings::setValues(MappingRequest *request)
 	const QByteArray &data = request->data();
 	// log the data
 	QLOG_ERROR() << "data size" << data.size();
-	QLOG_ERROR() << "data" << data
+	QLOG_ERROR() << "data" << data;
 
 
 	for (;!it.atEnd(); it.next()) {
