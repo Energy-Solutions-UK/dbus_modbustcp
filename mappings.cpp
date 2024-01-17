@@ -298,6 +298,7 @@ void Mappings::setValues(MappingRequest *request)
 		Q_ASSERT(item->getState() != VeQItem::Requested && item->getState() != VeQItem::Idle);
 		quint32 value = 0;
 		if (it.registerCount() < it.data()->size || it.offset() > 0) {
+			QLOG_ERROR() << "here1";
 			// The write request does not cover all registers mapped to the current item, so we
 			// retrieve the current value and overwrite parts of it with data from the request
 			// later.
@@ -310,6 +311,7 @@ void Mappings::setValues(MappingRequest *request)
 		// Copy the request data to `value`. Take care not to overwrite parts of `value` not
 		// covered by the request.
 		for (int i=0; i<it.registerCount(); ++i, j+=2) {
+			QLOG_ERROR() << "here2";
 			quint16 v = (static_cast<quint8>(data[j]) << 8) | static_cast<quint8>(data[j+1]);
 			int shift = 16 * (it.data()->size - i - it.offset() - 1);
 			value = (value & ~(0xFFFFu << shift)) | (v << shift);
