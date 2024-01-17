@@ -337,23 +337,9 @@ void Mappings::setValues(MappingRequest *request)
 									  it.data()->scaleFactor);
 			break;
 		case mb_type_string:
-		{
-			QString s = item->getValue().toString();
-			QByteArray b = s.toLatin1();
-			int index = 2 * it.offset();
-			for (int i=0; i<it.registerCount(); ++i, ++index) {
-				if (index >= b.size())
-					b.append('\0');
-				b[index] = static_cast<char>(value >> 8);
-				++index;
-				if (index >= b.size())
-					b.append('\0');
-				b[index] = static_cast<char>(value);
-				value >>= 16;
-			}
-			dbusValue = QString::fromLatin1(b);
-			break;
-		}
+			dbusValue = convertToDbus(it.data()->dbusType, QString::fromLatin1(data.constData() + j,
+																			  it.registerCount() * 2),
+									  it.data()->scaleFactor);
 		default:
 			// Do nothing. dbusValue will remain invalid, which will generate an error below.
 			break;
@@ -453,6 +439,8 @@ template<class argtype> QVariant Mappings::convertToDbus(QMetaType::Type dbusTyp
 		return QVariant::fromValue(static_cast<unsigned int>(round(value/scaleFactor)));
 	case QMetaType::Bool:
 		return QVariant::fromValue(static_cast<int>(value));
+	case QMetaType::QString:
+		return QVariant::fromValue(QString::number(value));
 	default:
 		QLOG_WARN() << "[Mappings] convert to dbus type tries to convert an unsupported type:"
 					<< dbusType;
