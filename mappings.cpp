@@ -290,6 +290,11 @@ void Mappings::setValues(MappingRequest *request)
 	DataIterator it(this, request->address(), request->unitId(), request->quantity());
 	int j = 0;
 	const QByteArray &data = request->data();
+	// log the data
+	QLOG_ERROR() << "data size" << data.size();
+	QLOG_ERROR() << "data" << data
+
+
 	for (;!it.atEnd(); it.next()) {
 		Q_ASSERT(it.error() == NoError);
 		// Where a register is calculated from multiple items, a WRITE should not be possible,
