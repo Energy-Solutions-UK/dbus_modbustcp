@@ -336,6 +336,11 @@ void Mappings::setValues(MappingRequest *request)
 			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint64>(value),
 									  it.data()->scaleFactor);
 			break;
+		case mb_type_string:
+			{
+			QLOG_ERROR() << "Cannot write string values";
+			QLOG_ERROR() << value;
+			}
 		default:
 			// Do nothing. dbusValue will remain invalid, which will generate an error below.
 			break;
