@@ -358,7 +358,7 @@ void Mappings::setValues(MappingRequest *request)
 			{
 			QLOG_ERROR() << "here3";
 			QLOG_ERROR() << data;
-			dbusValue = convertToDbus(it.data()->dbusType, value,
+			dbusValue = convertToDbus(it.data()->dbusType, data,
 									  it.data()->scaleFactor);
 			}
 		default:
@@ -463,7 +463,7 @@ template<class argtype> QVariant Mappings::convertToDbus(QMetaType::Type dbusTyp
 	case QMetaType::QString:
 		{
 			QLOG_ERROR() << "made it here";
-			return QVariant::fromValue(static_cast<unsigned int>(round(value/scaleFactor)));
+			return QVariant::fromValue(QString::value);
 		}
 	default:
 		QLOG_WARN() << "[Mappings] convert to dbus type tries to convert an unsupported type:"
