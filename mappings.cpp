@@ -358,7 +358,7 @@ void Mappings::setValues(MappingRequest *request)
 			{
 			QLOG_ERROR() << "here3";
 			QLOG_ERROR() << data;
-			dbusValue = convertToDbus(it.data()->dbusType, value
+			dbusValue = convertToDbus(it.data()->dbusType, value,
 									  it.data()->scaleFactor);
 			}
 		default:
