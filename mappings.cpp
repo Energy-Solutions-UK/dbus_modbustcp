@@ -319,6 +319,8 @@ void Mappings::setValues(MappingRequest *request)
 		// covered by the request.
 		for (int i=0; i<it.registerCount(); ++i, j+=2) {
 			QLOG_ERROR() << "here2";
+			QLOG_ERROR() << "j" << j;
+			QLOG_ERROR() << "data[j]" << data[j];
 			quint16 v = (static_cast<quint8>(data[j]) << 8) | static_cast<quint8>(data[j+1]);
 			int shift = 16 * (it.data()->size - i - it.offset() - 1);
 			value = (value & ~(0xFFFFu << shift)) | (v << shift);
@@ -347,11 +349,8 @@ void Mappings::setValues(MappingRequest *request)
 			break;
 		case mb_type_string:
 			{
-			QLOG_ERROR() << "Cannot write string values";
-			QLOG_ERROR() << value;
-			dbusValue = convertToDbus(it.data()->dbusType, static_cast<quint16>(value), 
-									  it.data()->scaleFactor);
-			QLOG_ERROR() << "dbusValue" << dbusValue.toString();
+			QLOG_ERROR() << "here3";
+			QLOG_ERROR() << data;
 			}
 		default:
 			// Do nothing. dbusValue will remain invalid, which will generate an error below.
