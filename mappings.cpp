@@ -462,8 +462,7 @@ template<class argtype> QVariant Mappings::convertToDbus(QMetaType::Type dbusTyp
 	case QMetaType::QString:
 		{
 			// value will be a string here
-			QString s = QString::fromUtf8(value);
-			return QVariant::fromValue(s);
+			return QVariant::fromValue(value);
 		}
 	default:
 		QLOG_WARN() << "[Mappings] convert to dbus type tries to convert an unsupported type:"
