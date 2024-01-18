@@ -438,6 +438,20 @@ template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value,
 	}
 }
 
+template<> QVariant Mappings::convertToDbus<QString>(QMetaType::Type dbusType,
+                                                     QString value, double scaleFactor)
+{
+    switch (dbusType) {
+    case QMetaType::QString:
+        // value is already a string, so just return it
+        return QVariant::fromValue(value);
+    default:
+        QLOG_WARN() << "[Mappings] convert to dbus type tries to convert an unsupported type:"
+                    << dbusType;
+        return QVariant();
+    }
+}
+
 template<class argtype> QVariant Mappings::convertToDbus(QMetaType::Type dbusType,
 														 argtype value, double scaleFactor)
 {
@@ -459,11 +473,6 @@ template<class argtype> QVariant Mappings::convertToDbus(QMetaType::Type dbusTyp
 		return QVariant::fromValue(static_cast<unsigned int>(round(value/scaleFactor)));
 	case QMetaType::Bool:
 		return QVariant::fromValue(static_cast<int>(value));
-	case QMetaType::QString:
-		{
-			// value will be a string here
-			return QVariant::fromValue(value);
-		}
 	default:
 		QLOG_WARN() << "[Mappings] convert to dbus type tries to convert an unsupported type:"
 					<< dbusType;
