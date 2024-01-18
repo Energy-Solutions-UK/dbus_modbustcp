@@ -321,9 +321,14 @@ void Mappings::setValues(MappingRequest *request)
 			QLOG_ERROR() << "here2";
 			QLOG_ERROR() << "j" << j;
 			QLOG_ERROR() << "data[j]" << data[j];
+			QLOG_ERROR() << "data[j+1]" << data[j+1];
+			QLOG_ERROR() << "value" << value;
 			quint16 v = (static_cast<quint8>(data[j]) << 8) | static_cast<quint8>(data[j+1]);
+			QLOG_ERROR() << "v" << v;
 			int shift = 16 * (it.data()->size - i - it.offset() - 1);
+			QLOG_ERROR() << "shift" << shift;
 			value = (value & ~(0xFFFFu << shift)) | (v << shift);
+			QLOG_ERROR() << "value" << value;
 		}
 		QVariant dbusValue;
 		switch (it.data()->modbusType) {
