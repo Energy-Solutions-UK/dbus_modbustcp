@@ -438,8 +438,7 @@ template<class rettype> rettype Mappings::convertFromDbus(const QVariant &value,
 	}
 }
 
-template<> QVariant Mappings::convertToDbus<QString>(QMetaType::Type dbusType,
-                                                     QString value, double scaleFactor)
+template<class argtype> QVariant Mappings::convertToDbus<QString>(QMetaType::Type dbusType, QString value, double scaleFactor)
 {
     switch (dbusType) {
     case QMetaType::QString:
