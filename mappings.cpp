@@ -461,9 +461,8 @@ template<class argtype> QVariant Mappings::convertToDbus(QMetaType::Type dbusTyp
 		return QVariant::fromValue(static_cast<int>(value));
 	case QMetaType::QString:
 		{
-			QLOG_ERROR() << "made it here";
-			QString s = QString::number(value);
-			QLOG_ERROR() << s;
+			// value will be a string here
+			QString s = QString::fromUtf8(value);
 			return QVariant::fromValue(s);
 		}
 	default:
