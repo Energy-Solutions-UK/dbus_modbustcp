@@ -329,7 +329,7 @@ void Mappings::setValues(MappingRequest *request)
 			QLOG_ERROR() << "shift" << shift;
 			// value = (value & ~(0xFFFFu << shift)) | (v << shift);
 			// value = (v << shift);
-			value = v
+			value = v;
 			QLOG_ERROR() << "value" << value;
 		}
 		QVariant dbusValue;
