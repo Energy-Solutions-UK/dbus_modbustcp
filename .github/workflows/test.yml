@@ -5,7 +5,7 @@ on:
     paths-ignore:
       - '**/README.md'
 jobs:
-  build-modbustcp:
+  test-modbustcp:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -21,9 +21,6 @@ jobs:
             echo "Unsupported architecture. Exiting..."
             exit 1
           fi
-      - name: Install Qtest
-        run: |
-          sudo apt-get install qt5-qmake qt5-default qttools5-dev-tools
       - name: Download & Install SDK
         run: |
           wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
@@ -34,6 +31,7 @@ jobs:
       - name: test project
         run: |
           . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
+          sudo apt-get install qt5-default
           mkdir -p build/test
           cd build/test
           qmake ../../test/modbustcp_test.pro && make && ./modbustcp_test
