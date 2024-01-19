@@ -21,12 +21,6 @@ jobs:
             echo "Unsupported architecture. Exiting..."
             exit 1
           fi
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install qtbase5-dev
-          qmake -v
-          sudo apt-get install build-essential
       - name: Download & Install SDK
         run: |
           wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
@@ -37,6 +31,10 @@ jobs:
       - name: test project
         run: |
           . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
+          sudo apt-get update
+          sudo apt-get install qtbase5-dev
+          qmake -v
+          sudo apt-get install build-essential
           mkdir -p build/test
           cd build/test
           qmake ../../test/modbustcp_test.pro && make && ./modbustcp_test
