@@ -30,7 +30,7 @@ jobs:
           sudo ln -s /opt/venus/dunfell-arm-cortexa8hf-neon/* /opt/venus/current/
       - name: list SDK
         run: |
-          ls /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi/usr/lib
+          ls /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi/
       - name: test project
         run: |
           . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
