@@ -290,9 +290,6 @@ void Mappings::setValues(MappingRequest *request)
 	DataIterator it(this, request->address(), request->unitId(), request->quantity());
 	int j = 0;
 	const QByteArray &data = request->data();
-	// log the data
-	QLOG_ERROR() << "data size" << data.size();
-	QLOG_ERROR() << "data" << data;
 
 	for (;!it.atEnd(); it.next()) {
 		Q_ASSERT(it.error() == NoError);
@@ -302,35 +299,22 @@ void Mappings::setValues(MappingRequest *request)
 		Q_ASSERT(item->getState() != VeQItem::Requested && item->getState() != VeQItem::Idle);
 		quint32 value = 0;
 		if (it.registerCount() < it.data()->size || it.offset() > 0) {
-			QLOG_ERROR() << "here1";
 			// The write request does not cover all registers mapped to the current item, so we
 			// retrieve the current value and overwrite parts of it with data from the request
 			// later.
 			QVariant dbusValue = item->getValue();
 			for (int i=0; i<it.data()->size; ++i) {
-				QLOG_ERROR() << "getting value";
 				quint16 v = getValue(dbusValue, it.data()->modbusType, i, it.data()->scaleFactor);
-				QLOG_ERROR() << "value" << v;
 				value = (value << 16) | v;
-				QLOG_ERROR() << "value2" << value;
 			}
 		}
 		// Copy the request data to `value`. Take care not to overwrite parts of `value` not
 		// covered by the request.
 		for (int i=0; i<it.registerCount(); ++i, j+=2) {
-			QLOG_ERROR() << "here2";
-			QLOG_ERROR() << "j" << j;
-			QLOG_ERROR() << "data[j]" << data[j];
-			QLOG_ERROR() << "data[j+1]" << data[j+1];
-			QLOG_ERROR() << "value" << value;
 			quint16 v = (static_cast<quint8>(data[j]) << 8) | static_cast<quint8>(data[j+1]);
-			QLOG_ERROR() << "v" << v;
 			int shift = 16 * (it.data()->size - i - it.offset() - 1);
-			QLOG_ERROR() << "shift" << shift;
-			// value = (value & ~(0xFFFFu << shift)) | (v << shift);
-			// value = (v << shift);
+			value = (value & ~(0xFFFFu << shift)) | (v << shift);
 			value = v;
-			QLOG_ERROR() << "value" << value;
 		}
 		QVariant dbusValue;
 		switch (it.data()->modbusType) {
@@ -355,11 +339,7 @@ void Mappings::setValues(MappingRequest *request)
 									  it.data()->scaleFactor);
 			break;
 		case mb_type_string:
-			{
-			QLOG_ERROR() << "here3";
-			QLOG_ERROR() << data;
 			dbusValue = convertToDbus(it.data()->dbusType, QString(data));
-			}
 		default:
 			// Do nothing. dbusValue will remain invalid, which will generate an error below.
 			break;
