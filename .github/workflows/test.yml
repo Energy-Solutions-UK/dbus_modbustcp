@@ -40,4 +40,4 @@ jobs:
           . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
           mkdir -p build/test
           cd build/test
-          qmake CXX=$CXX ../../test/modbustcp_test.pro && make && ./modbustcp_test
+          qmake ../../test/modbustcp_test.pro && make && ./modbustcp_test
