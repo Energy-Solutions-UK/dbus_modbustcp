@@ -31,10 +31,7 @@ jobs:
       - name: test project
         run: |
           . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
-          sudo apt-get update
-          sudo apt-get install -y qtbase5-dev qtbase5-dev-tools
-          qmake -v
-          sudo apt-get install -y build-essential
+          ls -l /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi/lib
           mkdir -p build/test
           cd build/test
           qmake ../../test/modbustcp_test.pro && make && ./modbustcp_test
