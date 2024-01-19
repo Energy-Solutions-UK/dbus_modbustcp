@@ -31,7 +31,7 @@ jobs:
       - name: test project
         run: |
           . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
-          ls -l /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi/lib
+          ls -l /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
           mkdir -p build/test
           cd build/test
           qmake ../../test/modbustcp_test.pro && make && ./modbustcp_test
