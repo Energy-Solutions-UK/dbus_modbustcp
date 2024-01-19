@@ -684,11 +684,6 @@ Mappings::DBusModbusData::DBusModbusData(QString _deviceType, QStringList _objec
 		_scaleFactor = 1;
 	scaleFactor = _scaleFactor;
 
-	// if (_modbusType == mb_type_string && _accessRights == mb_perm_write) {
-	// 	_accessRights = mb_perm_read;
-	// 	QLOG_WARN() << "[Mappings] Register" << _deviceType << _objectPaths[0]
-	// 				<< ": cannot write string values";
-	// }
 	accessRights = _accessRights;
 }
 
