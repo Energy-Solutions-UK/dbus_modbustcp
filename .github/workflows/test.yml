@@ -1,0 +1,43 @@
+name: test-modbustcp
+run-name: ${{ github.actor }} is testing modbustcp
+on:
+  push:
+    paths-ignore:
+      - '**/README.md'
+jobs:
+  build-modbustcp:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        architecture: [x86_64]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check Architecture
+        run: |
+          if [[ "${{ matrix.architecture }}" != "x86_64" ]]; then
+            echo "Unsupported architecture. Exiting..."
+            exit 1
+          fi
+      - name: Cache SDK
+        id: cache-sdk
+        uses: actions/cache@v2
+        with:
+          path: /opt/venus
+          key: ${{ runner.os }}-sdk-${{ hashFiles('**/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh') }}
+      - name: Download & Install SDK
+        if: steps.cache-sdk.outputs.cache-hit != 'true'
+        run: |
+          wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
+          chmod u+x venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
+          sudo ./venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh -y
+          mkdir -p /opt/venus/current
+          sudo ln -s /opt/venus/dunfell-arm-cortexa8hf-neon/* /opt/venus/current/
+      - name: test project
+        run: |
+          . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
+          mkdir -p build/test
+          cd build/test
+          qmake CXX=$CXX ../../test/modbustcp_test.pro && make && ./modbustcp_test
