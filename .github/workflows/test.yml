@@ -28,10 +28,12 @@ jobs:
           sudo ./venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh -y
           mkdir -p /opt/venus/current
           sudo ln -s /opt/venus/dunfell-arm-cortexa8hf-neon/* /opt/venus/current/
+      - name: list SDK
+        run: |
+          ls /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi/usr/lib
       - name: test project
         run: |
           . /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
-          ls -l /opt/venus/current/environment-setup-cortexa8hf-neon-ve-linux-gnueabi
           mkdir -p build/test
           cd build/test
           qmake ../../test/modbustcp_test.pro && make && ./modbustcp_test
