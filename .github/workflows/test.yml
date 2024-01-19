@@ -21,14 +21,10 @@ jobs:
             echo "Unsupported architecture. Exiting..."
             exit 1
           fi
-      - name: Cache SDK
-        id: cache-sdk
-        uses: actions/cache@v2
-        with:
-          path: /opt/venus
-          key: ${{ runner.os }}-sdk-${{ hashFiles('**/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh') }}
+      - name: Install Qtest
+        run: |
+          sudo apt-get install libqt5test5
       - name: Download & Install SDK
-        if: steps.cache-sdk.outputs.cache-hit != 'true'
         run: |
           wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
           chmod u+x venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
