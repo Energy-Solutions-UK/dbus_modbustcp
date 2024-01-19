@@ -23,7 +23,7 @@ jobs:
           fi
       - name: Install Qtest
         run: |
-          sudo apt-get install libqt5test5
+          sudo apt-get install qt5-qmake qt5-default qttools5-dev-tools
       - name: Download & Install SDK
         run: |
           wget https://updates.victronenergy.com/feeds/venus/release/sdk/venus-dunfell-x86_64-arm-cortexa8hf-neon-toolchain-v3.13.sh
